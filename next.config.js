@@ -6,7 +6,6 @@ const nextConfig = {
   output: "export",
   distDir: "dist",
   reactStrictMode: true,
-
   experimental: {
     serverComponentsExternalPackages: ["@acme/ui"],
   },
