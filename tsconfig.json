@@ -26,6 +26,6 @@
       "@components/*": ["src/components/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "redux/store.ts", "pages/database/conn.js", "pages/database/conn.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "redux/store.ts", "pages/database/conn.js", "pages/database/conn.js", "components/test.jsx"],
   "exclude": ["node_modules"]
 }

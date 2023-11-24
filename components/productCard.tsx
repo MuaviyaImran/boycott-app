@@ -19,7 +19,7 @@ export function ProductCard({
       ></Image>
 
       <div className="p-3 text-xs">
-        <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-primary-fontC">
+        <h5 className="mb-2 text-2xl font-bold tracking-tight text-primary-fontC">
           {name}
         </h5>
         <p className="mb-1 font-normal text-gray-400">
