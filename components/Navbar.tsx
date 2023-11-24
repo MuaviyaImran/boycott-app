@@ -1,9 +1,13 @@
-import React, { useContext, startTransition } from "react";
+import React, { useContext, startTransition, useState } from "react";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUserLarge, faSignOut } from "@fortawesome/free-solid-svg-icons";
+import {
+  faUserLarge,
+  faSignOut,
+  faBars,
+} from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 import { signOut } from "next-auth/react";
 import { MyContext } from "utils/contextProvider";
@@ -13,13 +17,18 @@ const Navbar: React.FC = () => {
   const router = useRouter();
   const isAdminRoute = router.pathname === "/admin";
   const { setShow } = useContext(MyContext) as any;
-
+  const [mobNav, setMobNav] = useState(false);
   const updateShow = () => {
     startTransition(() => {
       setShow(true);
     });
   };
-
+  const menuItems = [
+    { text: "Orders" },
+    { text: "Favorites" },
+    { text: "Wallet" },
+    { text: "Help" },
+  ];
   const handleOnClick = () => {
     router.push("signin");
   };
@@ -40,10 +49,75 @@ const Navbar: React.FC = () => {
                 height={50}
               ></Image>
               <span className="ml-1">Palestine</span>
+              {/* <span className="ml-1">Palestine - Boycott Israel</span> */}
             </div>
           </Link>
           <span className="">Boycott Israel</span>
-          <div className="flex items-center gap-4">
+          <FontAwesomeIcon
+            className="lg:hidden"
+            icon={faBars}
+            onClick={() => setMobNav(!mobNav)}
+          />
+          {/* overlay */}
+          {mobNav ? (
+            <div className="bg-black/80 fixed w-full h-screen z-10 top-0 left-0 lg:hidden"></div>
+          ) : (
+            ""
+          )}
+          <div
+            className={`fixed top-16 w-[200px] bg-primary-fontC z-10 duration-300 lg:hidden
+              ${mobNav ? "right-0 " : "right-[-100%] "}`}
+          >
+            <span
+              onClick={() => setMobNav(!mobNav)}
+              className="absolute right-4 top-2 cursor-pointer text-black"
+            >
+              x
+            </span>
+            <nav>
+              <ul className="flex flex-col p-4 text-gray-800 items-end">
+                <div className=" pt-1">
+                  {session?.user ? (
+                    <Link href="/admin" className="flex gap-2 justify-end py-4">
+                      <Image
+                        src={session?.user?.image ?? "/person-avatar.avif"}
+                        alt="Profile Pic"
+                        width={30}
+                        height={30}
+                        className="rounded-full"
+                      ></Image>
+                      <span>Admin</span>
+                    </Link>
+                  ) : (
+                    <span
+                      onClick={handleOnClick}
+                      className="py-4 flex items-baseline justify-end"
+                    >
+                      <FontAwesomeIcon icon={faUserLarge} />
+                      <span className="ml-1">Login</span>
+                    </span>
+                  )}
+                  <span onClick={updateShow} className="justify-end py-4">
+                    Suggestions
+                  </span>
+                  {session?.user ? (
+                    <div
+                      className="pt-4 flex justify-end gap-2 items-center"
+                      onClick={handleLogout}
+                    >
+                      <FontAwesomeIcon
+                        className="text-primary-backgroundC"
+                        icon={faSignOut}
+                        onClick={handleLogout}
+                      />
+                      <span>Logout</span>
+                    </div>
+                  ) : null}
+                </div>
+              </ul>
+            </nav>
+          </div>
+          <div className="lg:flex items-center gap-4 hidden">
             {session?.user ? (
               <Link href="/admin" className="flex gap-2 items-center mx-2">
                 <Image
