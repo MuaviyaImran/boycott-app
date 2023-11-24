@@ -28,7 +28,7 @@ const Homepage: React.FC = () => {
   const getProducts = async () => {
     try {
       setLoading(true);
-      const response = await fetch("/api/getProducts", {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/getProducts`, {
         method: "GET",
       });
       if (response.ok) {

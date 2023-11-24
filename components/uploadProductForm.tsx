@@ -27,7 +27,7 @@ const UploadProductForm: React.FC = () => {
         email: session?.user?.email,
       };
       try {
-        const response = await fetch("/api/uploadProduct", {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/uploadProduct`, {
           method: "POST",
           body: JSON.stringify(body),
           headers: {

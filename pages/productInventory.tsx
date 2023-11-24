@@ -42,7 +42,7 @@ const PaymentHistory: FC = () => {
     try {
       setLoading(true);
       const response = await fetch(
-        `/api/removeProduct?productID=${productID}`,
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/removeProduct?productID=${productID}`,
         {
           method: "GET",
         }
