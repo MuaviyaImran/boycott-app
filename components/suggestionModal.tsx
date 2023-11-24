@@ -25,7 +25,7 @@ const SuggestionModal = () => {
       name: productName,
     };
     try {
-      const response = await fetch("/api/uplloadProductSuggestion", {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/uplloadProductSuggestion`, {
         method: "POST",
         body: JSON.stringify(body),
         headers: {
