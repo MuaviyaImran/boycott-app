@@ -9,7 +9,7 @@ mongoose.set("strictQuery", false);
 const { MONGO_URL } = process.env;
 
 if (!MONGO_URL) {
-  throw new Error("Please define the MONGODB_URL environment variable");
+  throw new Error("Please define the MONGO_URL environment variable");
 }
 
 let cached = global.mongoose;
