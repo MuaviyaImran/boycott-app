@@ -15,7 +15,7 @@ const SuggestionModal = () => {
     else setIsFilled(true);
   }, [productName]);
 
-  useEffect(() => setIsOpen(context?.show as boolean));
+  useEffect(() => setIsOpen(context?.show as boolean),[context?.show]);
 
   const onCloseModal = () => {
     context?.setShow(false);
