@@ -9,10 +9,12 @@ import { convertToLocaleString } from "utils/functions";
 import { ProductInventoryTypes } from "types/types";
 import Head from "next/head";
 import showToast from "utils/toast";
-
 import { ToastContainer } from "react-toastify";
+import { useSession } from "next-auth/react";
+import ErrorPage from "components/errorPage";
 
-const PaymentHistory: FC = () => {
+const Inventory: FC = () => {
+  const session = useSession().data;
   const [productList, setProductList] = useState<ProductInventoryTypes[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [searchQuery, setSearchQuery] = useState("");
@@ -22,7 +24,7 @@ const PaymentHistory: FC = () => {
 
   useEffect(() => {
     setProductList(JSON.parse(localStorage.getItem("productList") ?? "[]"));
-  },[]);
+  }, []);
   const handleSearch = () => {
     const filteredProducts = productList.filter((product) =>
       product.name.toLowerCase().includes(searchQuery.toLowerCase())
@@ -53,7 +55,6 @@ const PaymentHistory: FC = () => {
           (item) => item._id !== productID
         );
         setProductList(updatedItems);
-        // Update the local storage with the new array
         localStorage.setItem("productList", JSON.stringify(updatedItems));
         showToast(data.message);
 
@@ -65,10 +66,11 @@ const PaymentHistory: FC = () => {
       }
     } catch (error) {
       console.error("Error:", error);
-      showToast("Failed to fetch books.");
+      showToast("Failed Deletion.");
       setLoading(false);
     }
   };
+if(session?.user){
   return (
     <div>
       <Head>
@@ -192,6 +194,9 @@ const PaymentHistory: FC = () => {
       )}
     </div>
   );
+} else {
+  return <ErrorPage text="You Are not autorized to use this page." />;
+}
 };
 
-export default PaymentHistory;
+export default Inventory;

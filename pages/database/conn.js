@@ -1,7 +1,3 @@
-// import mongoose from "mongoose";
-
-// const dbConnect = async () => mongoose.connect(process.env.MONGO_URL);
-// export default dbConnect;
 import mongoose from "mongoose";
 
 mongoose.set("strictQuery", false);
@@ -24,12 +20,6 @@ async function dbConnect() {
   }
 
   if (!cached.promise) {
-    // const opts = {
-    //    useNewUrlParser: true,
-    //   useUnifiedTopology: true,
-    // };
-
-    //@ts-ignore
     cached.promise = await mongoose.connect(MONGO_URL);
   }
   cached.conn = await cached.promise;

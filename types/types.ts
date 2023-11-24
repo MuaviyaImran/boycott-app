@@ -39,3 +39,9 @@ export interface ProductInventoryTypes {
   image?: string;
   __v?: number;
 }
+export interface SuggestionsTypes {
+  _id: string;
+  name: string;
+  uploadedAt: string;
+  __v?: number;
+}
