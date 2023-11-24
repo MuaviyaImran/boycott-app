@@ -1,6 +1,5 @@
 import React from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
+import Image from "next/image";
 const Footer: React.FC = () => {
   return (
     <div className="bg-primary-backgroundC z-10 sticky bottom-0 w-full p-1 text-primary-fontC">
@@ -9,9 +8,14 @@ const Footer: React.FC = () => {
           <span className="text-[2rem] mt-3">&copy;</span> 2023 Boycott Israel.
           All rights reserved.
         </p>
-        <div className="flex items-center">
-          <FontAwesomeIcon icon={faEnvelope} />
-          <span className="ml-1">muaviyaimran1122@gmail.com</span>
+        <div className="flex items-center gap-2">
+        <Image
+                src={"/flag/palestine-flag.png"}
+                alt="Palestine Flag"
+                width={30}
+                height={30}
+              ></Image>
+          <span className="">Palastine</span>
         </div>
       </div>
     </div>

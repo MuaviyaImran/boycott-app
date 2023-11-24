@@ -1,10 +1,7 @@
 import Head from "next/head";
-import { PulseLoader } from "react-spinners";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
 import { ToastContainer } from "react-toastify";
-import showToast from "utils/toast";
 import Navbar from "components/Navbar";
 import ErrorPage from "components/errorPage";
 import UploadProductForm from "components/uploadProductForm";
@@ -25,7 +22,13 @@ const Admin: React.FC = () => {
           <Navbar />
         </header>
         <div className="max-width w-full justify-center items-center h-[90vh]">
-          <div className="flex justify-end p-6 text-primary-backgroundC">
+          <div className="flex justify-end p-6 text-primary-backgroundC gap-2">
+            <span
+              onClick={() => router.push("/suggestions")}
+              className="hover:bg-slate-200 hover:cursor-pointer rounded-md p-2"
+            >
+              Suggestions
+            </span>
             <span
               onClick={() => router.push("/productInventory")}
               className="hover:bg-slate-200 hover:cursor-pointer rounded-md p-2"
