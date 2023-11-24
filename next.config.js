@@ -3,7 +3,6 @@ const dotenv = require("dotenv");
 
 dotenv.config();
 const nextConfig = {
-  output: "export",
   distDir: "dist",
   reactStrictMode: true,
   images: {
