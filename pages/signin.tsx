@@ -15,8 +15,8 @@ export default function Signin() {
   const router = useRouter();
   const formik = useFormik({
     initialValues: {
-      email: "muaviyaimran1122@gmail.com",
-      password: "mu@viya123",
+      email: "",
+      password: "",
     },
     validate: validateLogin,
     onSubmit,
