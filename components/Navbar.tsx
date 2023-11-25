@@ -32,7 +32,7 @@ const Navbar: React.FC = () => {
     router.push("/");
   };
   return (
-    <header className="w-full top-0 flex justify-center sticky">
+    <header className="w-full top-0 flex justify-center sticky h-[60px]">
       <div className="bg-primary-backgroundC w-full text-primary-fontC">
         <div className="px-3 max-width flex gap-3 justify-between items-center py-1">
           <Link href="/">
