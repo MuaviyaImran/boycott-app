@@ -17,6 +17,9 @@ const Homepage: React.FC = () => {
   useEffect(() => {
     getProducts();
   }, []);
+  useEffect(() => {
+    if (searchQuery === "") setSearchResults([]);
+  }, [searchQuery]);
 
   useEffect(() => {
     const uniqueCategories = [
@@ -28,9 +31,12 @@ const Homepage: React.FC = () => {
   const getProducts = async () => {
     try {
       setLoading(true);
-      const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/getProducts`, {
-        method: "GET",
-      });
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/getProducts`,
+        {
+          method: "GET",
+        }
+      );
       if (response.ok) {
         const data = await response.json();
         localStorage.setItem("productList", JSON.stringify(data));
@@ -67,9 +73,9 @@ const Homepage: React.FC = () => {
             Loading...
           </div>
         ) : products.length === 0 && !loading ? (
-          <ErrorPage text="Sorry! No Products Found" />
+          <ErrorPage text="Sorry! No Products Found" isLogin={false} />
         ) : (
-          <div className="max-width px-3">
+          <div className="max-width sm:px-3 px-5">
             <SuggestionModal />
             <div className="flex items-center justify-end">
               <div className="flex border border-purple-200 rounded m-2">
@@ -88,10 +94,19 @@ const Homepage: React.FC = () => {
                 </button>
               </div>
             </div>
+            <div className="flex justify-end text-gray-600 m-2">
+              Products {" ("}
+              {searchResults.length === 0 || searchQuery === "" ? (
+                <span>{products.length}</span>
+              ) : (
+                <span>{searchResults.length}</span>
+              )}
+              {")"}
+            </div>
             <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
               {searchResults.length !== 0 && searchQuery != ""
                 ? searchResults?.map((product, index) => (
-                    <div key={index + product?.name}>
+                    <div className="h-[82vh]" key={index + product?.name}>
                       <ProductCard
                         name={product?.name}
                         category={product?.category}

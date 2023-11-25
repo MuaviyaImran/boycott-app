@@ -15,7 +15,7 @@ import { convertToLocaleString } from "utils/functions";
 
 const Suggestions: FC = () => {
   const session = useSession().data;
-  const [suggestion, setSuggestion] = useState<SuggestionsTypes[]>([]);
+  const [suggestions, setSuggestions] = useState<SuggestionsTypes[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
@@ -32,7 +32,7 @@ const Suggestions: FC = () => {
       );
       if (response.ok) {
         const data = await response.json();
-        setSuggestion(data);
+        setSuggestions(data);
       } else {
         const errorData = await response.json();
         showToast(errorData.message);
@@ -86,67 +86,81 @@ const Suggestions: FC = () => {
           <div className="w-full">
             <Navbar />
             <ToastContainer />
-            <div className="mx-4 h-[81vh] overflow-auto rounded-xl my-8">
-              <table className="flextable-auto w-full  bg-slate-200 ">
-                <thead className="border-b-2 border-dashed border-[#44576D] py-3">
-                  <tr className="">
-                    {tableHeader.map((headerItem, index) => {
+            {suggestions.length === 0 ? (
+              <div className="h-[90vh] flex items-center justify-center">
+                <ErrorPage
+                  text="No Suggestions Right Now...!"
+                  isLogin={false}
+                />
+              </div>
+            ) : (
+              <div className="mx-4 h-[81vh] overflow-auto rounded-xl my-8">
+                <table className="flextable-auto w-full  bg-slate-200 ">
+                  <thead className="border-b-2 border-dashed border-[#44576D] py-3">
+                    <tr className="">
+                      {tableHeader.map((headerItem, index) => {
+                        return (
+                          <th
+                            key={headerItem + index}
+                            className="md:py-4 px-2 text-primary-backgroundC md:text-[18px] slg:text-[24px] text-[15px] whitespace-nowrap py-2"
+                          >
+                            {headerItem}
+                          </th>
+                        );
+                      })}
+                    </tr>
+                  </thead>
+                  <tbody className="py-4">
+                    {suggestions?.map((item, index) => {
+                      item.uploadedAt = convertToLocaleString(item.uploadedAt);
+                      delete item.__v;
+                      const serialNumber = index + 1;
                       return (
-                        <th
-                          key={headerItem + index}
-                          className="md:py-4 px-2 text-primary-backgroundC md:text-[18px] slg:text-[24px] text-[15px] whitespace-nowrap py-2"
+                        <tr
+                          key={item._id + item.name + index}
+                          className="border-b-2 border-slate-50"
                         >
-                          {headerItem}
-                        </th>
+                          <td className="md:py-6 slg:px-7 px-2 text-center text-black-100 slg:text-[22px] font-bold md:text-[18px] py-2 text-[12px]">
+                            {serialNumber}
+                          </td>
+                          {Object.values(item).map((value, index) => {
+                            return (
+                              <td
+                                key={item._id + value + index}
+                                className="md:py-6 slg:px-7 px-2 text-center text-black-100 slg:text-[22px] font-bold md:text-[18px] py-2 text-[12px]"
+                              >
+                                {value}
+                              </td>
+                            );
+                          })}
+                          <td
+                            onClick={() => handleDelete(item._id)}
+                            className="md:py-6 slg:px-7 px-2 text-center text-[red] cursor-pointer slg:text-[22px] font-bold md:text-[18px] py-2 text-[12px]"
+                          >
+                            <FontAwesomeIcon
+                              icon={faBucket}
+                              className="cursor-pointer"
+                            />
+                          </td>
+                        </tr>
                       );
                     })}
-                  </tr>
-                </thead>
-                <tbody className="py-4">
-                  {suggestion?.map((item, index) => {
-                    item.uploadedAt = convertToLocaleString(item.uploadedAt);
-                    delete item.__v;
-                    const serialNumber = index + 1;
-                    return (
-                      <tr
-                        key={item._id + item.name + index}
-                        className="border-b-2 border-slate-50"
-                      >
-                        <td className="md:py-6 slg:px-7 px-2 text-center text-black-100 slg:text-[22px] font-bold md:text-[18px] py-2 text-[12px]">
-                          {serialNumber}
-                        </td>
-                        {Object.values(item).map((value, index) => {
-                          return (
-                            <td
-                              key={item._id + value + index}
-                              className="md:py-6 slg:px-7 px-2 text-center text-black-100 slg:text-[22px] font-bold md:text-[18px] py-2 text-[12px]"
-                            >
-                              {value}
-                            </td>
-                          );
-                        })}
-                        <td
-                          onClick={() => handleDelete(item._id)}
-                          className="md:py-6 slg:px-7 px-2 text-center text-[red] cursor-pointer slg:text-[22px] font-bold md:text-[18px] py-2 text-[12px]"
-                        >
-                          <FontAwesomeIcon
-                            icon={faBucket}
-                            className="cursor-pointer"
-                          />
-                        </td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
-            </div>
+                  </tbody>
+                </table>
+              </div>
+            )}
             <Footer />
           </div>
         )}
       </div>
     );
   } else {
-    return <ErrorPage text="You Are not autorized to use this page." />;
+    return (
+      <ErrorPage
+        text="You Are not autorized to use this page."
+        isLogin={true}
+      />
+    );
   }
 };
 

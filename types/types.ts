@@ -22,6 +22,7 @@ export interface TokenUser {
 }
 export interface ErrorPageProps {
   text: string;
+  isLogin: boolean;
 }
 export interface LayoutProps {
   children: ReactNode;
