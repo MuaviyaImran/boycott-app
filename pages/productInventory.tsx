@@ -70,133 +70,142 @@ const Inventory: FC = () => {
       setLoading(false);
     }
   };
-if(session?.user){
-  return (
-    <div>
-      <Head>
-        <title>Inventory</title>
-      </Head>
-      {loading ? (
-        <div className="flex justify-center items-center px-5 py-3">
-          <PulseLoader color="#FF8B4B" size={20} />
-        </div>
-      ) : (
-        <div className="w-full">
-          <Navbar />
-          <ToastContainer />
-          <div className="mx-4 h-[81vh] overflow-auto rounded-xl my-8">
-            <div className="flex items-center justify-end">
-              <div className="flex border border-purple-200 rounded m-2">
-                <input
-                  type="text"
-                  className="block w-full px-4 py-2 text-black bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
-                  placeholder="Search..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                />
-                <button
-                  onClick={handleSearch}
-                  className="px-4 text-white bg-purple-600 border-l rounded "
-                >
-                  Search
-                </button>
+  if (session?.user) {
+    return (
+      <div>
+        <Head>
+          <title>Inventory</title>
+        </Head>
+        {loading ? (
+          <div className="flex justify-center items-center px-5 py-3">
+            <PulseLoader color="#FF8B4B" size={20} />
+          </div>
+        ) : (
+          <div className="w-full">
+            <Navbar />
+            <ToastContainer />
+            <div className="mx-4 h-[81vh] overflow-auto rounded-xl my-8">
+              <div className="flex items-center justify-end">
+                <div className="flex border border-purple-200 rounded m-2">
+                  <input
+                    type="text"
+                    className="block w-full px-4 py-2 text-black bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                    placeholder="Search..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                  />
+                  <button
+                    onClick={handleSearch}
+                    className="px-4 text-white bg-purple-600 border-l rounded "
+                  >
+                    Search
+                  </button>
+                </div>
               </div>
-            </div>
-            <table className="flextable-auto w-full  bg-slate-200 ">
-              <thead className="border-b-2 border-dashed border-[#44576D] py-3">
-                <tr className="">
-                  {tableHeader.map((headerItem, index) => {
-                    return (
-                      <th
-                        key={headerItem + index}
-                        className="md:py-4 px-2 text-primary-backgroundC md:text-[18px] slg:text-[24px] text-[15px] whitespace-nowrap py-2"
-                      >
-                        {headerItem}
-                      </th>
-                    );
-                  })}
-                </tr>
-              </thead>
-              <tbody className="py-4">
-                {searchResults?.length > 0 && searchQuery != ""
-                  ? searchResults?.map((item, index) => {
-                      const serialNumber = index + 1;
-                      delete item.image;
-                      delete item.__v;
-                      item.uploadedAt = convertToLocaleString(item.uploadedAt);
+              <table className="flextable-auto w-full  bg-slate-200 ">
+                <thead className="border-b-2 border-dashed border-[#44576D] py-3">
+                  <tr className="">
+                    {tableHeader.map((headerItem, index) => {
                       return (
-                        <tr
-                          key={item._id + item.name + index}
-                          className="border-b-2 border-slate-50"
+                        <th
+                          key={headerItem + index}
+                          className="md:py-4 px-2 text-primary-backgroundC md:text-[18px] slg:text-[24px] text-[15px] whitespace-nowrap py-2"
                         >
-                          <td className="md:py-6 slg:px-7 px-2 text-center text-black-100 slg:text-[22px] font-bold md:text-[18px] py-2 text-[12px]">
-                            {serialNumber}
-                          </td>
-                          {Object.values(item).map((value, index) => {
-                            return (
-                              <td
-                                key={item._id + value + index}
-                                className="md:py-6 slg:px-7 px-2 text-center text-black-100 slg:text-[22px] font-bold md:text-[18px] py-2 text-[12px]"
-                              >
-                                {value}
-                              </td>
-                            );
-                          })}
-                          <td className="md:py-6 slg:px-7 px-2 text-center text-[red] cursor-pointer slg:text-[22px] font-bold md:text-[18px] py-2 text-[12px]">
-                            <FontAwesomeIcon
-                              icon={faBucket}
-                              className="cursor-pointer"
-                            />
-                          </td>
-                        </tr>
-                      );
-                    })
-                  : productList?.map((item, index) => {
-                      const serialNumber = index + 1;
-                      delete item.image;
-                      delete item.__v;
-                      item.uploadedAt = convertToLocaleString(item.uploadedAt);
-                      return (
-                        <tr
-                          key={item._id + item.name + index}
-                          className="border-b-2 border-slate-50"
-                        >
-                          <td className="md:py-6 slg:px-7 px-2 text-center text-black-100 slg:text-[22px] font-bold md:text-[18px] py-2 text-[12px]">
-                            {serialNumber}
-                          </td>
-                          {Object.values(item).map((value, index) => {
-                            return (
-                              <td
-                                key={item._id + value + index}
-                                className="md:py-6 slg:px-7 px-2 text-center text-black-100 slg:text-[22px] font-bold md:text-[18px] py-2 text-[12px]"
-                              >
-                                {value}
-                              </td>
-                            );
-                          })}
-                          <td
-                            onClick={() => handleDelete(item._id)}
-                            className="md:py-6 slg:px-7 px-2 text-center text-[red] cursor-pointer slg:text-[22px] font-bold md:text-[18px] py-2 text-[12px]"
-                          >
-                            <FontAwesomeIcon
-                              icon={faBucket}
-                              className="cursor-pointer"
-                            />
-                          </td>
-                        </tr>
+                          {headerItem}
+                        </th>
                       );
                     })}
-              </tbody>
-            </table>
+                  </tr>
+                </thead>
+                <tbody className="py-4">
+                  {searchResults?.length > 0 && searchQuery != ""
+                    ? searchResults?.map((item, index) => {
+                        const serialNumber = index + 1;
+                        delete item.image;
+                        delete item.__v;
+                        item.uploadedAt = convertToLocaleString(
+                          item.uploadedAt
+                        );
+                        return (
+                          <tr
+                            key={item._id + item.name + index}
+                            className="border-b-2 border-slate-50"
+                          >
+                            <td className="md:py-6 slg:px-7 px-2 text-center text-black-100 slg:text-[22px] font-bold md:text-[18px] py-2 text-[12px]">
+                              {serialNumber}
+                            </td>
+                            {Object.values(item).map((value, index) => {
+                              return (
+                                <td
+                                  key={item._id + value + index}
+                                  className="md:py-6 slg:px-7 px-2 text-center text-black-100 slg:text-[22px] font-bold md:text-[18px] py-2 text-[12px]"
+                                >
+                                  {value}
+                                </td>
+                              );
+                            })}
+                            <td className="md:py-6 slg:px-7 px-2 text-center text-[red] cursor-pointer slg:text-[22px] font-bold md:text-[18px] py-2 text-[12px]">
+                              <FontAwesomeIcon
+                                icon={faBucket}
+                                className="cursor-pointer"
+                              />
+                            </td>
+                          </tr>
+                        );
+                      })
+                    : productList?.map((item, index) => {
+                        const serialNumber = index + 1;
+                        delete item.image;
+                        delete item.__v;
+                        item.uploadedAt = convertToLocaleString(
+                          item.uploadedAt
+                        );
+                        return (
+                          <tr
+                            key={item._id + item.name + index}
+                            className="border-b-2 border-slate-50"
+                          >
+                            <td className="md:py-6 slg:px-7 px-2 text-center text-black-100 slg:text-[22px] font-bold md:text-[18px] py-2 text-[12px]">
+                              {serialNumber}
+                            </td>
+                            {Object.values(item).map((value, index) => {
+                              return (
+                                <td
+                                  key={item._id + value + index}
+                                  className="md:py-6 slg:px-7 px-2 text-center text-black-100 slg:text-[22px] font-bold md:text-[18px] py-2 text-[12px]"
+                                >
+                                  {value}
+                                </td>
+                              );
+                            })}
+                            <td
+                              onClick={() => handleDelete(item._id)}
+                              className="md:py-6 slg:px-7 px-2 text-center text-[red] cursor-pointer slg:text-[22px] font-bold md:text-[18px] py-2 text-[12px]"
+                            >
+                              <FontAwesomeIcon
+                                icon={faBucket}
+                                className="cursor-pointer"
+                              />
+                            </td>
+                          </tr>
+                        );
+                      })}
+                </tbody>
+              </table>
+            </div>
+            <Footer />
           </div>
-          <Footer />
-        </div>
-      )}
-    </div>
-  );
-} else {
-  return <ErrorPage text="You Are not autorized to use this page." />;
-}
+        )}
+      </div>
+    );
+  } else {
+    return (
+      <ErrorPage
+        text="You Are not autorized to use this page."
+        isLogin={true}
+      />
+    );
+  }
 };
 
 export default Inventory;

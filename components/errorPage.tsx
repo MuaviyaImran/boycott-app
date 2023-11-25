@@ -3,7 +3,7 @@ import Image from "next/image";
 import { ErrorPageProps } from "types/types";
 import { useRouter } from "next/router";
 
-const ErrorPage: React.FC<ErrorPageProps> = ({ text }) => {
+const ErrorPage: React.FC<ErrorPageProps> = ({ text, isLogin }) => {
   const router = useRouter();
   return (
     <div className="max-width h-[80vh] justify-center flex flex-col items-center ">
@@ -16,7 +16,7 @@ const ErrorPage: React.FC<ErrorPageProps> = ({ text }) => {
       ></Image>
       <div className="flex flex-col md:flex-row text-center md:text-left gap-2">
         {text}
-        {text === "You Are not autorized to use this page." ? (
+        {isLogin ? (
           <span
             className="text-primary-backgroundC underline underline-offset-4"
             onClick={() => router.push("/signin")}

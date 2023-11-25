@@ -46,7 +46,7 @@ const Admin: React.FC = () => {
       </>
     );
   } else {
-    return <ErrorPage text="You Are not autorized to use this page." />;
+    return <ErrorPage text="You Are not autorized to use this page." isLogin={true}/>;
   }
 };
 export default Admin;
