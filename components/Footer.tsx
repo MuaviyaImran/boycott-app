@@ -10,7 +10,7 @@ const Footer: React.FC = () => {
         </p>
         <div className="flex items-center gap-2">
         <Image
-                src={"/flag/palestine-flag.png"}
+                src={"/flag/palestine-flag.ico"}
                 alt="Palestine Flag"
                 width={30}
                 height={30}

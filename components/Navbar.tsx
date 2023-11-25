@@ -23,12 +23,7 @@ const Navbar: React.FC = () => {
       setShow(true);
     });
   };
-  const menuItems = [
-    { text: "Orders" },
-    { text: "Favorites" },
-    { text: "Wallet" },
-    { text: "Help" },
-  ];
+
   const handleOnClick = () => {
     router.push("signin");
   };
@@ -43,7 +38,7 @@ const Navbar: React.FC = () => {
           <Link href="/">
             <div className="flex items-center">
               <Image
-                src={"/flag/palestine-flag.png"}
+                src={"/flag/palestine-flag.ico"}
                 alt="Palestine Flag"
                 width={50}
                 height={50}
