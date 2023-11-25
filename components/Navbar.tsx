@@ -43,8 +43,7 @@ const Navbar: React.FC = () => {
                 width={50}
                 height={50}
               ></Image>
-              <span className="ml-1">Palestine</span>
-              {/* <span className="ml-1">Palestine - Boycott Israel</span> */}
+              <span className="ml-1 hidden lg:flex">Palestine</span>
             </div>
           </Link>
           <span className="">Boycott Israel</span>
