@@ -46,7 +46,7 @@ const Navbar: React.FC = () => {
               <span className="ml-1 hidden lg:flex">Palestine</span>
             </div>
           </Link>
-          <span className="">Boycott Israel</span>
+          <span>Boycott Israel</span>
           <FontAwesomeIcon
             className="lg:hidden"
             icon={faBars}

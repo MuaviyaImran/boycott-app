@@ -104,7 +104,7 @@ const Inventory: FC = () => {
               </div>
               <table className="flextable-auto w-full  bg-slate-200 ">
                 <thead className="border-b-2 border-dashed border-[#44576D] py-3">
-                  <tr className="">
+                  <tr>
                     {tableHeader.map((headerItem, index) => {
                       return (
                         <th

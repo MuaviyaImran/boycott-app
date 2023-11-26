@@ -15,7 +15,7 @@ const Footer: React.FC = () => {
             width={30}
             height={30}
           ></Image>
-          <span className="">Palastine</span>
+          <span>Palastine</span>
         </div>
       </div>
     </div>

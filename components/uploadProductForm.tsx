@@ -27,13 +27,16 @@ const UploadProductForm: React.FC = () => {
         email: session?.user?.email,
       };
       try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/uploadProduct`, {
-          method: "POST",
-          body: JSON.stringify(body),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_BASE_URL}/api/uploadProduct`,
+          {
+            method: "POST",
+            body: JSON.stringify(body),
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
 
         if (response.ok) {
           const data = await response.json();
@@ -52,7 +55,9 @@ const UploadProductForm: React.FC = () => {
       setLoading(false);
     }
   };
-  const categories: string[] = JSON.parse(localStorage.getItem("categories") ?? "[]");  
+  const categories: string[] = JSON.parse(
+    localStorage.getItem("categories") ?? "[]"
+  );
   const clearFormFields = () => {
     setImage("");
     setCategory("");
@@ -86,7 +91,9 @@ const UploadProductForm: React.FC = () => {
             value={category}
             onChange={(e) => setCategory(e.target.value)}
           >
-            <option className="text-[#9CA3AF]" value="">Select a category...</option>
+            <option className="text-[#9CA3AF]" value="">
+              Select a category...
+            </option>
             {categories?.map((categoryName: string, index: number) => (
               <option key={index + categoryName} value={categoryName}>
                 {categoryName}

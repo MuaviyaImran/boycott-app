@@ -24,7 +24,7 @@ export function ProductCard({
         </h5>
         <p className="mb- font-normal text-gray-400">
           <span className="text-white ">Category: </span>
-          <span className="">{category}</span>
+          <span>{category}</span>
         </p>
         <p className="mb- font-normal ">
           <span className="text-white ">Country: </span>
