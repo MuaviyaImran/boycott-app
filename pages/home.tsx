@@ -25,6 +25,7 @@ const Homepage: React.FC = () => {
     const uniqueCategories = [
       ...new Set(products.map((product) => product.category)),
     ];
+    uniqueCategories.sort();
     localStorage.setItem("categories", JSON.stringify(uniqueCategories));
   }, [products]);
 
@@ -106,27 +107,27 @@ const Homepage: React.FC = () => {
             <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
               {searchResults.length !== 0 && searchQuery != ""
                 ? searchResults?.map((product, index) => (
-                    <div className="h-[82vh]" key={index + product?.name}>
-                      <ProductCard
-                        name={product?.name}
-                        category={product?.category}
-                        counrtyOfProduction={product?.counrtyOfProduction}
-                        image={product?.image}
-                        uploadedAt={product?.uploadedAt}
-                      />
-                    </div>
-                  ))
-                : products?.map((product, index) => (
-                    <div key={index + product?.name}>
-                      <ProductCard
-                        name={product?.name}
-                        category={product?.category}
-                        counrtyOfProduction={product?.counrtyOfProduction}
-                        image={product?.image}
-                        uploadedAt={product?.uploadedAt}
-                      />
-                    </div>
-                  ))}
+                  <div className="h-[82vh]" key={index + product?.name}>
+                    <ProductCard
+                      name={product?.name}
+                      category={product?.category}
+                      counrtyOfProduction={product?.counrtyOfProduction}
+                      image={product?.image}
+                      uploadedAt={product?.uploadedAt}
+                    />
+                  </div>
+                ))
+              : products?.map((product, index) => (
+                  <div key={index + product?.name}>
+                    <ProductCard
+                      name={product?.name}
+                      category={product?.category}
+                      counrtyOfProduction={product?.counrtyOfProduction}
+                      image={product?.image}
+                      uploadedAt={product?.uploadedAt}
+                    />
+                  </div>
+                ))}
             </div>
           </div>
         )}

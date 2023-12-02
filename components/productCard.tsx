@@ -11,7 +11,7 @@ export function ProductCard({
   return (
     <div className="border rounded-lg shadow bg-gray-800 border-gray-700">
       <Image
-        className="rounded-t-lg bg-primary-fontC h-[150px]"
+        className="rounded-t-lg bg-primary-fontC md:h-[150px] h-[170px]"
         width={700}
         height={300}
         src={image}
